@@ -1,0 +1,50 @@
+\begin{table}[!th]
+\centering
+\scalebox{0.80}{
+\begin{threeparttable}
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{lccccccc}
+\toprule
+\multirow{2}{*}{\textbf{KoRC-H}} & \multicolumn{3}{c}{P-ACC} & \multicolumn{3}{c}{P-F1} \\
+\cmidrule(r){2-4}\cmidrule(lr){5-7}
+& ID & OOD & Mean & ID & OOD & Mean \\
+\midrule
+BART-base
+& $50.3$ & $24.9$ & $41.4$
+& $52.9$ & $30.2$ & $44.9$ \\
+Flan-T5-base 
+& $33.5$ & $24.0$ & $30.2$
+& $35.8$ & $27.5$ & $32.9$ \\
+Flan-T5-XXL 
+& $\mathbf{63.8}$ & $\mathbf{32.3}$ & $\mathbf{52.8}$
+& $65.8$ & $\mathbf{37.2}$ & $\mathbf{55.8}$ \\
+\midrule
+GPT-3 
+&  $18.2$ &  $24.6$ & $20.5$
+&  $22.2$ & $30.2$ & $25.0$ \\
+GLM-130B
+&  $9.9$ &  $14.9$ & $11.6$
+&  $12.7$ & $18.8$ & $14.8$ \\
+\midrule
+RAG-seq
+& $61.7$ & $25.9$ & $49.2$
+& $63.7$ & $30.0$ & $51.9$ \\
+RAG-token 
+& $57.4$ & $23.5$ & $45.5$
+& $59.1$ & $27.2$ & $47.9$ \\
+\midrule
+EmbedKGQA 
+& $61.2$ & $21.9$ & $47.4$ 
+& $\mathbf{68.3}$ & $28.9$ & $54.5$ \\
+EmbedKGQA$^*$ 
+& $34.0$ & $13.6$ & $26.9$
+& $41.6$ & $21.8$ & $34.6$ \\
+TransferNet 
+& $32.7$ & $12.9$ & $25.8$
+& $37.7$ & $16.6$ & $30.3$ \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+}
+\label{tab:baseline}
+\end{table}

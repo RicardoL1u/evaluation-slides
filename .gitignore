@@ -1,0 +1,12 @@
+# ignore for latex
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.pdf
+*.synctex.gz
+*.fdb_latexmk
+*.snm
+*.nav
