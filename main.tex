@@ -380,7 +380,83 @@
 
 
 \begin{frame}{Experiments}
-    
+    \begin{itemize}
+        \item How well can LLMs reason about conflicting external knowledge?
+        \begin{itemize}
+            \item \textbf{Effect of Reasoning Type:} Knot-Simple v.s. Knot-Explicit v.s. Knot-Implicit
+            \item \textbf{Effect of Alignment:} Pre-trained only v.s. Assistant LLMs
+        \end{itemize}
+        \item How well the existing knowledge editing methods work on \dataname?
+        \begin{itemize}
+            \item Prompting
+            \item Decoding
+            \item Fine-tuning
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Main Results on \dataname}
+
+\begin{columns}[t]
+    \column{0.5\textwidth}
+    How well can LLMs reason about conflicting external knowledge?
+    \begin{itemize}
+        \item Effect of Reasoning Type:
+        \begin{itemize}
+            \item \datanameS: It is not challenging for capable LLMs to simply extract conflicting knowledge from the given passage
+            \item \datanameE and \datanameI: When reasoning skills are required, the performance drops significantly
+        \end{itemize}
+        % TODO: need to refine the description here
+        \item Effect of Alignment:
+        \begin{itemize}
+            \item 13B variants of LLaMA and LLaMA-2 worse than 7B variants
+            \item while, this is not observed in counterparts of assistant LLMs (Alpac, Vicuna, Tulu and LLaMA-2-chat)
+        \end{itemize}
+        
+    \end{itemize}
+    \column{0.5\textwidth}
+    \vspace*{-2.15cm}
+    \begin{table}[t]
+        \centering
+        \setlength{\tabcolsep}{3pt}
+        \scalebox{0.76}{
+        \begin{tabular}{llrrrr}
+        \toprule
+        Type & LLM      & \datanameS & \datanameE & \datanameI \\ \midrule
+        \multirow{7}{*}{\rotatebox{90}{Pre-trained\;\ Only}}
+        & GPT-J    & $48.57$  & $29.84$   & $18.63$   \\
+        & GPT-NeoX   & $55.65$  & $30.72$   & $20.39$   \\
+        & LLaMA-7B    & $64.19$  & $38.20$   & $21.18$   \\
+        & LLaMA-13B    & $49.65$  & $27.20$   & $17.45$   \\
+        & LLaMA-2-7B   & $63.88$  & $35.65$   & $20.59$   \\
+        & LLaMA-2-13B  & $77.18$  & $42.52$   & $24.51$   \\
+        & LLaMA-2-70B  & $59.63$  & $32.75$   & $20.20$   \\
+        \cmidrule(lr){1-5}
+        \multirow{11}{*}{\rotatebox{90}{Assistant\;\ LLMs}}
+        & GPT-JT   & $60.59$  & $32.57$   & $17.25$   \\
+        & GPT-NeoXT   & $70.03$  & $38.73$   & $27.65$   \\
+        & Alpaca-7B    & $82.74$  & $46.83$   & $29.22$   \\
+        & Alpaca-13B    & $85.82$  & $43.75$   & $28.82$   \\
+        & Vicuna-7B    & $75.92$  & $42.43$   & $26.67$   \\
+        & Vicuna-13B    & $84.20$   & $46.30$    & $25.29$   \\
+        & Tulu-7B     & $86.72$  & $51.50$    & $27.06$   \\
+        & Tulu-13B    & $87.34$  & $53.26$   & $26.67$   \\
+        & LLaMA-2-7B-Chat   & $90.66$  & $50.18$   & $28.82$   \\
+        & LLaMA-2-13B-Chat  & $91.66$  & $53.43$   & $35.88$   \\
+        & LLaMA-2-70B-Chat  & $94.93$  & $58.54$   & $38.24$   \\
+        \cmidrule(lr){2-5}
+        & \texttt{gpt-3.5-turbo}   & $83.66$  & $34.95$   & $10.20$   \\
+        & \texttt{text-davinci-003}  & $95.11$  & $63.56$   & $35.49$   \\
+        \bottomrule
+        \end{tabular}
+        }
+        \label{tab:main-result}
+    \end{table}
+\end{columns}
+
+
+
 \end{frame}
 
 \backmatter
