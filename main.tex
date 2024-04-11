@@ -226,21 +226,101 @@
 \end{frame}
 
 
+\section{Untangle the KNOT (COLING 2024)}
+\begin{frame}
+\frametitle{Background}
+\begin{itemize}
+    \item LLMs' knowledge is easily outdataed and hard to update 
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figure/knot-twitter-ceo-example.png}
+        \end{center}
+        \column{0.5\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figure/knot-twitter-ex-by-google.png}
+        \end{center}
+    \end{columns}
+
+
+    % \item Existing \textbf{knowledge editing} methods are still NOT scalable
+    % \item The external non-parametric knowledge is hard to be integrated into LLMs
+\end{itemize}
+\end{frame}
 
 \begin{frame}
-\frametitle{Untangle the KNOT: Interweaving Conflicting Knowledge and Reasoning Skills in Large Language Models}
-\begin{columns}
+\frametitle{Object}
+\begin{columns}[t]
     \column{0.5\textwidth}
-    \textbf{Object:} Evaluate the ability of LLMs to integrate \textbf{Conflicting} knowledge from external sources with its internal knowledge.
-    \begin{enumerate}
-        \item Conflicting knowledge: the knowledge which is contradictory to the internal knowledge of LLM (hallucination, out-of-date, etc.)
-        \item Reasoning skills: the ability to reason about the conflicting knowledge (including explicit reasoning and implicit reasoning)
-        % \item Simple question which directly ask for the conflicting knowledge is mainly solved, but the reasoning with conflicting knowledge is not well solved.
-    \end{enumerate}
-    \column{0.45\textwidth}
-    \vspace*{-1.7cm}
-    \includegraphics[width=\textwidth]{figure/knot-intro.pdf}
+    \begin{itemize}
+        \item \textbf{Object:} Evaluate the ability of LLMs to reason about conflicting external knowledge
+        \begin{itemize}
+            \item Categories the reason skills into \textbf{3} levels
+            \item \textbf{Knot-Simple}: requires LLMs directly extract the conflicting knowledge from the given passage
+            \item \textbf{Knot-Explicit} and \textbf{Knot-Implicit}: requires LLMs to reason with the conflicting external knowledge and its internal knowledge
+        \end{itemize}
+    \end{itemize}
+    \column{0.50\textwidth}
+    \vspace*{-2.35cm}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{figure/knot-intro.pdf}
+    \end{center}
 \end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dataset Construction}
+\begin{center}
+    \includegraphics[width=\textwidth]{figure/knot-construction.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Dataset Construction - Knowledge Saliency Calculation}
+    \begin{itemize}
+        \item Calulate the saliency of each node in Wikidata by PageRank
+        \item Select the top-$1\%$ entity nodes as topic enitty $e^t$ 
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.85\textwidth]{figure/knot-construction.pdf}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data Construction - Document Generation}
+    \begin{itemize}
+        \item For each topic entity $e_t$, sample a subgraph as the ego network from Wikidata
+        \item Swap one of the neighbors $e$ in the ego network with a conflicting node $e'$ 
+        \item Then prompt \texttt{gpt-3.5-turbo} to generate a document based on the ego network
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.75\textwidth]{figure/knot-construction.pdf}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data Construction - Question Generation}
+    \begin{columns}[t]
+        \column{0.60\textwidth}
+        \begin{itemize}
+            \item \textbf{Knot-S}: ``Which entity has relation \texttt{$r$} with \texttt{$e_t$}?''
+            \item \textbf{Knot-E}: ``Whcih entity has relation $r_2$ with the entity that has relation $r_1$ with $e_t$?''
+            \item \textbf{Knot-I}
+            \begin{itemize}
+                \item Decomposition Rule: $r = r_1 + \dots + r_n$
+                \item First hop $r_1$ is in provided document \\ \texttt{Messi $\xrightarrow{playsFor}$ Inter Miami}
+                \item And the remaining hops are the background knowledge \\ \texttt{Inter Miami $\xrightarrow{LocatedIn}$ Miami}
+                \item Question: ``Which entity has relation \texttt{$r$} with \texttt{$e_t$}?''
+            \end{itemize}
+        \end{itemize}
+        \column{0.45\textwidth}
+        \begin{center}
+            \vspace*{-1cm}
+            \includegraphics[width=0.9\textwidth]{figure/knot-three.pdf}
+        \end{center}
+    \end{columns}
 \end{frame}
 
 
