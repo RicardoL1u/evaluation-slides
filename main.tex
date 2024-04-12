@@ -552,6 +552,56 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Existing Method: Fine-Tuning}
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Fine-Tuning LLMs with small scale of training data (603, 190 and 26 for \datanameS, \datanameE and \datanameI, respectively)
+            \item Purpose of fine-tuning:
+            \begin{itemize}
+                \item To enable LLMs to understand instructions to resolve the conflicting knowledge
+                \item To enable LLMs to better integrate the conflicting knowledge with the intrinsic knowledge through the chain-of-though
+            \end{itemize}
+        \end{itemize}
+
+
+        \column{0.5\textwidth}
+        % Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage[normalem]{ulem}
+% \useunder{\uline}{\ul}{}
+\begin{table}[t]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \scalebox{0.8}{
+    \begin{tabular}{lrrrr}
+    \toprule
+    LLMs                & \datanameS & \datanameE & \datanameI \\ 
+    \midrule
+        \multirow{1}{*}{LLaMA-7B}              
+           & \cellcolor{'sgreen'} $90.1$ ($+25.9$)  & \cellcolor{'sgreen'} $60.2$ ($+22.0$)    & \cellcolor{'sgreen'} $32.0$ ($+10.8$)    \\
+        \multirow{1}{*}{Alpaca-7B}           
+           & \cellcolor{'sgreen'} $92.5$ ($+\;\;9.8$)  & \cellcolor{'sgreen'} $59.2$ ($+12.4$)    & \cellcolor{'sgreen'} $32.2$ ($+\;\;2.9$)    \\
+        \multirow{1}{*}{Vicuna-7B}            
+           & \cellcolor{'sgreen'} $94.6$ ($+18.6$)   & \cellcolor{'sgreen'} $60.0$ ($+17.6$)    & \cellcolor{'sgreen'} $32.9$ ($+\;\;6.3$)       \\
+        \multirow{1}{*}{Tulu-7B}             
+           & \cellcolor{'sgreen'} $90.2$ ($+\;\;3.4$)  & \cellcolor{'sgreen'} $54.1$ ($+\;\;2.6$)     & \cellcolor{'sgreen'} $27.5$ ($+\;\;0.4$)   \\ 
+    % Tulu-13B 93.5 (+6.2)	56.7 (+3.4)	31.2 (+4.5)
+       \multirow{1}{*}{Tulu-13B}
+          & \cellcolor{'sgreen'} $93.5$ ($+\;\;6.2$)  & \cellcolor{'sgreen'} $56.7$ ($+\;\;3.4$)     & \cellcolor{'sgreen'} $31.2$ ($+\;\;4.5$)   \\
+    \bottomrule
+    \end{tabular}
+    }
+    \caption{
+    Accuracy (\%) and their absolute changes (compared with main exp) after fine-tuning.
+    }
+    \label{tab:train}
+    \end{table}        
+    \end{columns}
+\end{frame}
+
 
 \backmatter
 \setbeamertemplate{bibliography item}{[\theenumiv]}
