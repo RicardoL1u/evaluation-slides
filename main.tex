@@ -28,6 +28,7 @@
 % \newcommand{\datanameS}{K{\small NOT}-S\xspace}
 % \newcommand{\datanameI}{K{\small NOT}-I\xspace}
 
+\usepackage{colortbl}
 \definecolor{'sgreen'}{HTML}{F3FADF} 
 \definecolor{'sred'}{HTML}{FFEAE8}
 
@@ -454,10 +455,53 @@
         \label{tab:main-result}
     \end{table}
 \end{columns}
-
-
-
 \end{frame}
+
+\begin{frame}
+\frametitle{Existing Methods: Prompting}
+\begin{columns}[t]
+    \column{0.5\textwidth}
+    \begin{itemize}
+        \item In the main experiment, we adopt the regular Q\&A prompting
+        \item \cite{zhou-etal-2023-context} proposed two prompting strategies (\textit{i.e.}, Instr+Opin) for conflicting knowledge
+        \item \textbf{Takeaway:} One well-designed strategy on one dataset may not be suitable for another dataset
+    \end{itemize}
+    \column{0.5\textwidth}
+    \vspace*{-0.5cm}
+    \begin{figure}
+        \includegraphics[width=\textwidth]{figure/muhao-prompting.png}
+    \end{figure}
+    \begin{table}
+        \scalebox{0.7}{
+        \renewcommand{\arraystretch}{1.2}
+        \setlength{\tabcolsep}{3pt}
+        \begin{tabular}{lrrrrrr}
+        \toprule
+         & LLMs                         & \datanameS & \datanameE & \datanameI \\ 
+        \midrule
+        
+        \multirow{5}{*}{\rotatebox{90}{Instr+Opin}}
+        
+        & LLaMA-7B            & \cellcolor{'sred'} $57.0$ ($-\;\;7.2$)   & \cellcolor{'sgreen'} $40.9$ ($+\;\;2.7$)   & \cellcolor{'sred'}$17.7$ ($-\;\;3.5$)    \\
+        & Alpaca-7B           & \cellcolor{'sred'} $78.2$ ($-\;\;4.6$)   &  $46.8$ ($\;\;\;\;0.0$)                        & \cellcolor{'sred'} $26.1$ ($-\;\;3.1$)    \\
+        & Vicuna-7B           & \cellcolor{'sred'} $32.6$ ($-43.4$)  & \cellcolor{'sred'} $25.0$ ($-17.4$)    & \cellcolor{'sred'} $12.9$ ($-13.7$)       \\
+        & Tulu-7B             & \cellcolor{'sred'} $83.5$ ($-\;\;3.3$)   & \cellcolor{'sred'} $47.6$ ($-\;\;3.9$)     & \cellcolor{'sred'} $26.3$ ($-\;\;0.8$)   \\ 
+        % Tulu-13B 88.8 (+1.5)	46.8 (-6.5)	26.7 (0.0)
+        &Tulu-13B             & \cellcolor{'sred'} $88.8$ ($+\;\;1.5$)   & \cellcolor{'sred'} $46.8$ ($-\;\;6.5$)     & $26.7$ ($\;\;\;\;0.0$)   \\
+        \bottomrule
+        \end{tabular}
+        }
+        \caption{
+        Accuracy (\%) with prompting strategies.
+        % We show absolute accuracy changes compared with results from main experiment in parenthesis.
+        We report Accuracy changes w.r.t main exp in ()
+        }
+        \label{tab:prompting}
+    \end{table}
+\end{columns}
+\end{frame}
+
+
 
 \backmatter
 \setbeamertemplate{bibliography item}{[\theenumiv]}
