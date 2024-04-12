@@ -464,7 +464,8 @@
     \begin{itemize}
         \item In the main experiment, we adopt the regular Q\&A prompting
         \item \cite{zhou-etal-2023-context} proposed two prompting strategies (\textit{i.e.}, Instr+Opin) for conflicting knowledge
-        \item \textbf{Takeaway:} One well-designed strategy on one dataset may not be suitable for another dataset
+        \item \textbf{Observation:} The results do not present a promising improvement
+        \item \textbf{Takeaway:} One well-designed prompting strategy on one dataset may not be suitable for another dataset
     \end{itemize}
     \column{0.5\textwidth}
     \vspace*{-0.5cm}
@@ -501,6 +502,55 @@
 \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Existing Methods: Decoding}
+    \begin{columns}[t]
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item In the main experiment, we adopt the regular greedy decoding strategy
+            \item Context-Aware Decoding \cite{shi2023trusting} is proposed to let LLMs focus more on the provided document
+            \item \textbf{Observation:} CAD helps LLMs achieve better performance only on \datanameS, but not on \datanameE and \datanameI which require both the conflicting knowledge and the intrinsic knowledge
+            \item \textbf{Takeaway:} Although CAD helps LLMs to trust the provided document more, \textit{it diminishes the ability of LLMs to access \textbf{intrinsic knowledge}}.
+        \end{itemize}
+        \column{0.45\textwidth}
+        \vspace*{-2cm}
+        \begin{figure}
+            \includegraphics[width=\textwidth]{figure/cad.png}
+        \end{figure}
+        \vspace*{-0.5cm}
+        \begin{table}[t]
+            \renewcommand{\arraystretch}{1.2}
+            \scalebox{0.7}{
+            \setlength{\tabcolsep}{3pt}
+            \begin{tabular}{lrrrrr}
+            \toprule
+            LLMs                         & \datanameS & \datanameE & \datanameI \\ 
+            \midrule
+            \multirow{1}{*}{LLaMA-7B}              
+               & \cellcolor{'sgreen'} $66.5$ ($+2.3$)  & \cellcolor{'sred'} $37.1$ ($-1.1$)    & \cellcolor{'sred'}$9.2$ ($-12.0$)    \\
+            \multirow{1}{*}{Alpaca-7B}           
+               &  $82.7$ ($\;\;\;0.0$)  & \cellcolor{'sgreen'} $50.3$ ($+3.4$)    & \cellcolor{'sred'} $20.4$ ($-\;\;8.8$)    \\
+            \multirow{1}{*}{Vicuna-7B}            
+               & \cellcolor{'sgreen'} $77.3$ ($+1.4$)   & \cellcolor{'sred'} $41.6$ ($-0.8$)    & \cellcolor{'sred'} $18.8$ ($-\;\;7.9$)       \\
+            \multirow{1}{*}{Tulu-7B}             
+               & \cellcolor{'sgreen'} $87.7$ ($+0.9$)  & \cellcolor{'sred'} $42.9$ ($-8.6$)     & \cellcolor{'sred'} $11.4$ ($-15.7$)   \\ 
+            
+            % & Tulu-13B 	91.5 (+4.2)	44.3 (-9.0)	15.9 (-10.8)
+            \multirow{1}{*}{Tulu-13B}
+               & \cellcolor{'sgreen'} $91.5$ ($+4.2$)  & \cellcolor{'sred'} $44.3$ ($-9.0$)     & \cellcolor{'sred'} $15.9$ ($-10.8$)   \\
+                                       \bottomrule
+            \end{tabular}
+            }
+            \caption{
+            \footnotesize Accuracy (\%) with context-aware decoding.
+            We report Accuracy changes w.r.t main exp in ()
+            % Comparison result between greedy search and CAD. All the results are reported in accuracy (\%).
+            }
+            \label{tab:cad}
+            \end{table}
+            
+    \end{columns}
+\end{frame}
 
 
 \backmatter
