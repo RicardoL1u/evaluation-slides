@@ -603,6 +603,58 @@
 \end{frame}
 
 
+\begin{frame}
+    \frametitle{Effect of Reasoning Types}
+    \begin{columns}[t]
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item \textbf{ When No Reasoning Need:} Knowledge conflicting with direct extraction
+            is almost resolved by mainstream LLMs.
+            \item \textbf{ When Reasoing is required:} Resolving conflicting knowledge with complex reasoning requirement stimulates LLMs to stick to their parametric knowledge.
+            \item \textbf{Implicit Reasoning v.s. Explicit Reasoning:} The impact of scaling up LLMs is double edged: While the stickiness to parametric knowledge mildly alleviates in Knot-E, it exacerbates in Knot-I.
+        \end{itemize}
+        
+        \column{0.45\textwidth}
+
+        \begin{table}[t]
+            \centering
+            \scalebox{0.80}{
+            \setlength{\tabcolsep}{6pt}
+            \begin{tabular}{lccc}
+            \toprule
+            {LLMs} & {\datanameS} & {\datanameE} & {\datanameI} \\
+            \midrule
+            % w.r.t parametric knowledge answer $a'$ \\
+            % muticol
+            \multicolumn{4}{c}{\textit{w.r.t parametric knowledge answer $\{a_i^\prime\}$}} \\
+            \midrule
+            LLaMA-2-7B-chat   & $0.42$ & $14.88$ & $18.24$ \\
+            LLaMA-2-13B-chat  & $0.53$ & $13.47$ & $23.33$ \\
+            LLaMA-2-70B-chat  & $0.57$ & $13.38$ & $28.24$ \\
+            \midrule
+            \multicolumn{4}{c}{\textit{w.r.t conflicting knowledge answer $\{a\}$}} \\
+            \midrule
+            LLaMA-2-7B-Chat   & $90.66$  & $50.18$   & $28.82$   \\
+            LLaMA-2-13B-Chat  & $91.66$  & $53.43$   & $35.88$   \\
+            LLaMA-2-70B-Chat  & $94.93$  & $58.54$   & $38.24$   \\
+            \bottomrule
+            \end{tabular}
+            }
+            \caption{The Accuracy (\%) of LLMs w.r.t $\{a_i^\prime\}$  and $\{a_i\}$ on \dataname.
+            $\{a_i^\prime\}$ and $\{a_i\}$ are the set of aliases of answer.
+            % $\{a_i^\prime\}$ is the set of aliases of answer to the question when the parametric knowledge $k'$ is considered.
+            % while $\{a_i\}$ is the set of aliases of answer to the question when the conflicting knowledge $k$ is considered.
+            }
+            % on \dataname.
+            % $\{a_i^\prime\}$ is the set of aliases of answer to the question when the parametric knowledge $k'$ is considered, rather than the conflicting knowledge $k$.
+            % }
+            \label{tab:origin-answer}
+        \end{table}
+
+    \end{columns}
+\end{frame}
+
+
 \backmatter
 \setbeamertemplate{bibliography item}{[\theenumiv]}
 \bibliographystyle{plain}
