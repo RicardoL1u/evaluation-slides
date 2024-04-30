@@ -20,6 +20,15 @@
 
 % newcommand for red text
 \newcommand{\red}[1]{\textcolor{red}{#1}}
+
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 \newcommand{\dataname}{\textsc{Knot}\xspace}
 \newcommand{\datanameE}{\textsc{Knot}-E\xspace}
 \newcommand{\datanameS}{\textsc{Knot}-S\xspace}
@@ -105,9 +114,9 @@
     % Existing QA datasets either focus on extracting knowledge from the passage (SQuAD, HotpotQA) or examining the internal knowledge of LLMs (TriviaQA, Natural Questions) \\
     \textbf{Object:} Evaluate the ability of LLMs to integrate knowledge from external sources with its internal knowledge.
     \begin{enumerate}
-        \item Answering questions requires multiple-hop reasoning
+        \item Answering questions\footnote{Anonymized question entity in the passage to avoid information leakage} requires multiple-hop reasoning
         \item The reasoning chain scatters in both the given \textbf{passage} and the \textbf{Internal Knowledge} of LLMs
-        \item Anonymized question entity in the passage to avoid information leakage
+        
         % \item Board coverage of knowledge: Use Knowledge Base and LLM to generate questions
         % \item Flexible evaluation: Allow one questions to have multiple correct answers
     \end{enumerate}
@@ -129,53 +138,44 @@
 
 \begin{frame}
 \frametitle{Dataset Construction - Document Preparation}
-\begin{columns}
-    \column{0.5\textwidth}
+
     \begin{itemize}
-        \item Align document to a background knowledge base
-        \item Entity linking
+        \item Align document to a background knowledge base (Entity linking)
         \item Document Relation Extraction
     \end{itemize}
-    \column{0.45\textwidth}
-    % \vspace*{-1.7cm}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{figure/korc-doc-prep.pdf}
-    \end{center}
-\end{columns}    
+
+    
+
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{figure/korc-construction.pdf}
+\end{center}
+ 
 \end{frame}
 
 \begin{frame}
 \frametitle{Dataset Construction - Reasoning Chain Preparation}
 
-\begin{columns}
-    \column{0.5\textwidth}
-    \begin{itemize}
-        \item Relation Compositional Rules Mining
-        \item Reasoning Chain Extraction
-    \end{itemize}
-    \column{0.45\textwidth}
-    % \vspace*{-1.7cm}
-    \begin{center}
-        \includegraphics[width=0.65\textwidth]{figure/korc-rule-prep.pdf}
-    \end{center}
-\end{columns}
+\begin{itemize}
+    \item Relation Compositional Rules Mining
+    \item Reasoning Chain Extraction
+\end{itemize}
+% \vspace*{-1.7cm}
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{figure/korc-construction.pdf}
+\end{center}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Dataset Construction - Data Annotation}
-\begin{columns}
-    \column{0.5\textwidth}
-    \begin{itemize}
-        \item Preventing Bypass Background Knowledge: Question Filtering
-        \item Prevent Bypassing Document: Entity Name Anonymization
-        \item Question Generation: Template or Humann or LLMs
-    \end{itemize}
-    \column{0.45\textwidth}
-    % \vspace*{-1.7cm}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{figure/korc-data-anon.pdf}
-    \end{center}
-\end{columns}
+\begin{itemize}
+    % \item Preventing Bypass Background Knowledge: Question Filtering
+    \item Prevent Bypassing Document: Entity Name Anonymization
+    \item Question Generation: Template / Humann / LLMs
+\end{itemize}
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{figure/korc-construction.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
